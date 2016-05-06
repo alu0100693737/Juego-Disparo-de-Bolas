@@ -11,18 +11,18 @@ import java.awt.Color;
 import java.util.Random;
 
 public class Bola {
-	final static int RADIO_BOLA = 20;
+	final static int RADIO_BOLA = 30;
 	private Color colorBola;
 	private ColoresContainer tiposColores;
 	private int coordenadaX;
 	private int coordenadaY;
 	public Bola(int coordX, int coordY) {
 		setTipoColores(new ColoresContainer());
-		
-		Random aux = new Random();
-		setColorBola(getTipoColores().getArrayColores().get(aux.nextInt() % 3));
 		setCoordX(coordX);
 		setCoordY(coordY);
+		Random aux = new Random();
+		int aux1 = aux.nextInt() % getTipoColores().getArrayColores().size();
+		setColorBola(getTipoColores().getArrayColores().get(Math.abs(aux.nextInt() % getTipoColores().getArrayColores().size())));
 	}
 	
 	public Color getColorBola() {
