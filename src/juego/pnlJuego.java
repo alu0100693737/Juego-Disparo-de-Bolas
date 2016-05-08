@@ -69,20 +69,22 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		g2.setColor(getBolaJugador().getColorBola());
 		// se Pinta la bola
 		if(!lanzado) {
-			g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA / 2 , getHeight() - 2 * ESPACIO_SUELO_PANEL, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+			g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA/2 , getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA , getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
 		} else {
-			g2.fillOval(getWidth()/2 + getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getHeight() - 2 *  ESPACIO_SUELO_PANEL + getPosicionYBola() - getBolaJugador().RADIO_BOLA / 2, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);			//}
+			g2.fillOval(getWidth()/2 + getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getHeight() - 2 *  ESPACIO_SUELO_PANEL + getPosicionYBola() - getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);			//}
 		}
 		// se Pinta la flecha
 		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
 		Point ne = new Point(getPuntoXFlecha(), getPuntoYFlecha());
 		g2.draw(new Line2D.Double(sw, ne));
 		
-		// se Pinta la direccion de la flecha
+		// se Pinta la direccion de la flecha. MEJORAR
 		if(ne.x > getWidth() / 2) {
-			g2.drawLine(ne.x, ne.y, ne.x - ne.x / 10 , ne.y + ne.y / 10);//drawArrowHead(g2, sw, ne, Color.red);
+			g2.drawLine(ne.x, ne.y, (int)(ne.x - (20* Math.cos(270))) , (int)(ne.y - (20 * Math.sin(0))));//drawArrowHead(g2, sw, ne, Color.red);
+			g2.drawLine(ne.x, ne.y, (int)(ne.x + (20* Math.cos(90))) , (int)(ne.y + (20 * Math.sin(90))));//drawArrowHead(g2, sw, ne, Color.red);
 		} else {
-			g2.drawLine(ne.x, ne.y, ne.x + ne.x / 10 , ne.y + ne.y / 10);
+			g2.drawLine(ne.x, ne.y, (int)(ne.x - (20* Math.cos(180))) , (int)(ne.y - (20 * Math.sin(180))));//drawArrowHead(g2, sw, ne, Color.red);
+			g2.drawLine(ne.x, ne.y, (int)(ne.x + (20* Math.cos(0))) , (int)(ne.y + (20 * Math.sin(0))));//drawArrowHead(g2, sw, ne, Color.red);
 		}
 	}
 	

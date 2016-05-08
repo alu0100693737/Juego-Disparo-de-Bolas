@@ -13,6 +13,8 @@ import java.lang.reflect.GenericArrayType;
 
 import javax.swing.JFrame;
 
+import org.omg.PortableServer.ServantRetentionPolicyOperations;
+
 public class jfrAplicacion extends JFrame {
 	private static int prueba;	
 	private final static int PRECISION_PINTAR = 2; // se pinta en cada pixel
@@ -36,17 +38,20 @@ public class jfrAplicacion extends JFrame {
 			if(prueba < 1000) {
 
 				prueba++;
-				if(juego.getRectaEntrePuntos().getPunto2().getX() < (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
+				if(juego.getRectaEntrePuntos().getPunto2().getX() <= (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
+					if(juego.getPosicionYBola() + juego.getHeight() - 2 * juego.getBolaJugador().RADIO_BOLA - 30 > 0) {
+
 					juego.setPosicionXBola(juego.getPosicionXBola() - PRECISION_PINTAR);
 					juego.setPosicionYBola(juego.getHeight() - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
-				} else if(juego.getRectaEntrePuntos().getPunto2().getX() > (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
-					System.out.println("NOO");
-					System.out.println(juego.getRectaEntrePuntos().getPunto2().getX() +  " X ");
-					
-					juego.setPosicionXBola(juego.getPosicionXBola() + PRECISION_PINTAR);
-					juego.setPosicionYBola(juego.getHeight() - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
+					}
+					} else if(juego.getRectaEntrePuntos().getPunto2().getX() > (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
+
+					if(juego.getPosicionYBola() + juego.getHeight() - 2 * juego.getBolaJugador().RADIO_BOLA - 30 > 0) {
+						juego.setPosicionXBola(juego.getPosicionXBola() + PRECISION_PINTAR);
+						juego.setPosicionYBola(juego.getHeight() - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
+					}
 				} else {
-					
+
 				}
 				juego.repaint();
 			} else {

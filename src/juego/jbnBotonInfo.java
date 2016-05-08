@@ -15,7 +15,6 @@ public final class jbnBotonInfo {
 	public jbnBotonInfo() throws IOException {
 		BufferedImage myPicture = ImageIO.read(new File("info.png"));
 		setInfo(new JButton(new ImageIcon(myPicture)));
-		getInfo().setBackground(Color.WHITE);
 		getInfo().setBorder(null);
 		getInfo().setBackground(COLOR_FONDO);
 	}
