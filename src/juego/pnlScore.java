@@ -18,14 +18,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class pnlScore extends JPanel {
+	
+	private pnlOpciones opciones;
 	private jlbEtiqueta score;
-	private jbnBotonInfo boton;
+	private jbnBotonInfo botonInfo;
 	
 	public pnlScore() throws IOException {
 		setLayout(new GridLayout(3, 1, 5, 5));
-		add(new jlbEspaciado(150, 150));
+		setpnlOpciones(new pnlOpciones());
+		add(getpnlOpciones());
 		setScore(new jlbEtiqueta("__"));
-		setBoton(new jbnBotonInfo());
+		setBotonInfo(new jbnBotonInfo());
 		add(getScore());
 		getBoton().getInfo().addActionListener(new abrirPanelInfo());
 		add(getBoton().getInfo());
@@ -40,11 +43,19 @@ public class pnlScore extends JPanel {
 	}
 	
 	public jbnBotonInfo getBoton() {
-		return boton;
+		return botonInfo;
 	}
 	
-	public void setBoton(jbnBotonInfo valor) {
-		boton = valor;
+	public void setBotonInfo(jbnBotonInfo valor) {
+		botonInfo = valor;
+	}
+	
+	public pnlOpciones getpnlOpciones() {
+		return opciones;
+	}
+	
+	public void setpnlOpciones(pnlOpciones valor) {
+		opciones = valor;
 	}
 	
 public static class abrirPanelInfo implements ActionListener {

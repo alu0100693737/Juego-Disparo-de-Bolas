@@ -13,18 +13,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-public class pnlJuego extends JPanel {
+public class pnlJuego extends JPanel implements MouseMotionListener {
 	
 	private final static int ESPACIO_SUELO_PANEL = 30; // Distancia de pixeles entre la linea del suelo y el borde del panel
 	private final static Color COLOR_FONDO = new Color(141, 206, 255);
 	private ColoresContainer colores;
 	private Bola bolaJugador;
 	private pnlFlecha flecha;
-	private PuntosCircunferencia puntosFlecha;  //Puntos en 360 grados para pintar la flecha con angulo
+	
+	private int puntoXFlecha;
+	private int puntoYFlecha;
+	
 	private ArrayList<Bola> bolasJuego; 
 	public int posicionSueloHeight; 
 	
@@ -37,7 +42,9 @@ public class pnlJuego extends JPanel {
 		setColores(new ColoresContainer());
 		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL));
 		flecha = new pnlFlecha();
-		setPuntosFlecha(new PuntosCircunferencia(10));
+		setPuntoXFlecha(getWidth() / 2);
+		setPuntoXFlecha(getHeight());
+		addMouseMotionListener(this);
 		add(flecha);
 	}
 	
@@ -73,10 +80,10 @@ public class pnlJuego extends JPanel {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		
 		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
-		Point ne = new Point((int)getPuntosFlecha().getPuntosCircunferencia().get(222).getX() + getWidth() / 2, (int)getPuntosFlecha().getPuntosCircunferencia().get(222).getY() + getHeight() - 3 * ESPACIO_SUELO_PANEL);
+		Point ne = new Point(getPuntoXFlecha(), getPuntoYFlecha());
 		g2.draw(new Line2D.Double(sw, ne));
-		g2.drawLine(ne.x, ne.y, ne.x - 10, ne.y + 15);//drawArrowHead(g2, sw, ne, Color.red);
-		g2.drawLine(ne.x, ne.y, ne.x + 10, ne.y + 15);
+		//g2.drawLine(ne.x, ne.y, ne.x - 10, ne.y + 15);//drawArrowHead(g2, sw, ne, Color.red);
+		//g2.drawLine(ne.x, ne.y, ne.x + 10, ne.y + 15);
 		drawArrowHead(g2, ne, sw, Color.blue);
 	}
 	
@@ -88,12 +95,20 @@ public class pnlJuego extends JPanel {
 		bolaJugador = nueva;
 	}
 	
-	public PuntosCircunferencia getPuntosFlecha() {
-		return puntosFlecha;
+	public int getPuntoXFlecha() {
+		return puntoXFlecha;
 	}
 	
-	public void setPuntosFlecha(PuntosCircunferencia valor) {
-		puntosFlecha = valor;
+	public void setPuntoXFlecha(int valor) {
+		puntoXFlecha = valor;
+	}
+	
+	public int getPuntoYFlecha() {
+		return puntoYFlecha;
+	}
+	
+	public void setPuntoYFlecha(int valor) {
+		puntoYFlecha = valor;
 	}
 
 	public ColoresContainer getColores() {
@@ -103,4 +118,14 @@ public class pnlJuego extends JPanel {
 	public void setColores(ColoresContainer valor) {
 		colores = valor;
 	}
+
+	 public void mouseMoved(MouseEvent e) {
+		 setPuntoXFlecha(e.getX()); 
+		 setPuntoYFlecha(e.getY());
+		 repaint();
+  }
+
+  public void mouseDragged(MouseEvent e) {
+  	System.out.println("Dragged");
+  }
 }
