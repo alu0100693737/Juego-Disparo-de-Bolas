@@ -14,18 +14,18 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-public class pnlJuego extends JPanel implements MouseMotionListener {
+public class pnlJuego extends JPanel implements MouseListener, MouseMotionListener {
 	
 	private final static int ESPACIO_SUELO_PANEL = 30; // Distancia de pixeles entre la linea del suelo y el borde del panel
 	private final static Color COLOR_FONDO = new Color(141, 206, 255);
 	private ColoresContainer colores;
 	private Bola bolaJugador;
-	private pnlFlecha flecha;
 	
 	private int puntoXFlecha;
 	private int puntoYFlecha;
@@ -41,27 +41,10 @@ public class pnlJuego extends JPanel implements MouseMotionListener {
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
 		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL));
-		flecha = new pnlFlecha();
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
 		addMouseMotionListener(this);
-		add(flecha);
-	}
-	
-	private void drawArrowHead(Graphics2D g2, Point tip, Point tail, Color color) {
-		g2.setPaint(color);
-		double dy = tip.y - tail.y;
-		double dx = tip.x - tail.x;
-		double theta = Math.atan2(dy, dx);
-		//System.out.println("theta = " + Math.toDegrees(theta));
-		double x, y, rho = theta + phi;
-		for(int j = 0; j < 2; j++)
-		{
-			x = tip.x - barb * Math.cos(rho);
-			y = tip.y - barb * Math.sin(rho);
-			g2.draw(new Line2D.Double(tip.x, tip.y, x, y));
-			rho = theta - phi;
-		}
+		addMouseListener(this);
 	}
 	
 	@Override
@@ -69,22 +52,26 @@ public class pnlJuego extends JPanel implements MouseMotionListener {
 		// TODO Auto-generated method stub
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g2.drawLine(0, getHeight() - ESPACIO_SUELO_PANEL, getWidth(), getHeight() - ESPACIO_SUELO_PANEL);
+		
+		// se Pinta el suelo
 		g2.setStroke(new BasicStroke(3));
 		g2.draw(new Line2D.Float(0, getHeight() - ESPACIO_SUELO_PANEL, getWidth(), getHeight() - ESPACIO_SUELO_PANEL));
+		
+		// se Pinta la bola
 		g2.setColor(getBolaJugador().getColorBola());
-	
 		g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA / 2 , getHeight() - 2 * ESPACIO_SUELO_PANEL, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
 		
-		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-				RenderingHints.VALUE_ANTIALIAS_ON);
-		
+		// se Pinta la flecha
 		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
 		Point ne = new Point(getPuntoXFlecha(), getPuntoYFlecha());
 		g2.draw(new Line2D.Double(sw, ne));
-		//g2.drawLine(ne.x, ne.y, ne.x - 10, ne.y + 15);//drawArrowHead(g2, sw, ne, Color.red);
-		//g2.drawLine(ne.x, ne.y, ne.x + 10, ne.y + 15);
-		drawArrowHead(g2, ne, sw, Color.blue);
+		
+		// se Pinta la direccion de la flecha
+		if(ne.x > getWidth() / 2) {
+			g2.drawLine(ne.x, ne.y, ne.x - ne.x / 10 , ne.y + ne.y / 5);//drawArrowHead(g2, sw, ne, Color.red);
+		} else {
+			g2.drawLine(ne.x, ne.y, ne.x + ne.x / 10 , ne.y + ne.y /5);
+		}
 	}
 	
 	public Bola getBolaJugador() {
@@ -128,4 +115,36 @@ public class pnlJuego extends JPanel implements MouseMotionListener {
   public void mouseDragged(MouseEvent e) {
   	System.out.println("Dragged");
   }
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		System.out.println("HOLA");
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -15,8 +15,7 @@ public class jfrAplicacion extends JFrame {
 	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
 	private pnlJuego juego;
 	public pnlScore score;
-	private pnlFlecha flecha;
-	
+
 	public jfrAplicacion() throws IOException {
 		setLayout(new BorderLayout());
 		juego = new pnlJuego();
