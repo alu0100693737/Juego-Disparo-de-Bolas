@@ -13,11 +13,9 @@ import java.lang.reflect.GenericArrayType;
 
 import javax.swing.JFrame;
 
-
-
 public class jfrAplicacion extends JFrame {
 private static int prueba;	
-	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
+	private final static int PRECISION_PINTAR = 2; // se pinta en cada pixel
 	private static pnlJuego juego;
 	public static pnlScore score;
 
@@ -38,11 +36,15 @@ private static int prueba;
 					if(prueba < 50) {
 						System.out.println("Dentro del timer");
 						prueba++;
-						System.out.println("Buda" + juego.getPosicionXBola() + " " + juego.getPosicionYBola());
-						juego.setPosicionXBola(juego.getPosicionXBola() - 10);
-						juego.setPosicionYBola(juego.getPosicionYBola() + 10);
-						System.out.println("Ivan" + juego.getPosicionXBola() + " " + juego.getPosicionYBola());
+						if(juego.getRectaEntrePuntos().getPunto2().getX() < juego.getPosicionXBola()) {
+						juego.setPosicionXBola(juego.getPosicionXBola() - PRECISION_PINTAR);
+						juego.setPosicionYBola(juego.getHeight() -  juego.getBolaJugador().RADIO_BOLA / 2 - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 + juego.getPosicionXBola()));
 
+						} else {
+							juego.setPosicionXBola(juego.getPosicionXBola() + PRECISION_PINTAR);
+							juego.setPosicionYBola(juego.getHeight() -  juego.getBolaJugador().RADIO_BOLA / 2 + juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
+
+						}
 						juego.repaint();
 					} else {
 						juego.getTempo().stop();

@@ -12,9 +12,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -24,34 +21,35 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class pnlJuego extends JPanel implements MouseListener, MouseMotionListener {
-	
-	private final static int ESPACIO_SUELO_PANEL = 30; // Distancia de pixeles entre la linea del suelo y el borde del panel
+	public final static int ESPACIO_SUELO_PANEL = 30; // Distancia de pixeles entre la linea del suelo y el borde del panel
 	private final static Color COLOR_FONDO = new Color(141, 206, 255);
 	private ColoresContainer colores;
 	private Bola bolaJugador;
-	
 	private int puntoXFlecha;
 	private int puntoYFlecha;
-	
 	private ArrayList<Bola> bolasJuego; 
 	
 	//movimiento de la bola
 	private rectaEntreDosPuntos rectaPuntos; 
 	private static int posicionXBola;
 	private static int posicionYBola;
-	
 	private static Timer tempo;
-	
 	private boolean lanzado;
 	
 	public pnlJuego() {
 		setPreferredSize(new Dimension(400, 600));
+		System.out.println("HOLA");
+		System.out.println(getSize().getWidth() + " " + getSize().getHeight());
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
 		tempo = new Timer(500, new jfrAplicacion.timerHandler());
 		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL));
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
+		
+		System.out.println("Creando");
+		System.out.println(getPosicionXBola() + " " + getPosicionYBola());
+
 		setLanzado(false);
 		addMouseMotionListener(this);
 		addMouseListener(this);
@@ -72,10 +70,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		if(!lanzado) {
 			g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA / 2 , getHeight() - 2 * ESPACIO_SUELO_PANEL, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
 		} else {
-			//if(getRectaEntrePuntos().getPunto2().getX() > getWidth() / 2) { 
-			g2.fillOval(getWidth() / 2 + getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getHeight() - 2 * ESPACIO_SUELO_PANEL - getPosicionYBola(), getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
-			System.out.println(getPosicionXBola() + "HOLA QUIE AFGsd" + getPosicionYBola());
-			//}
+			g2.fillOval(getWidth()/2 + getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getHeight() - 2 *  ESPACIO_SUELO_PANEL + getPosicionYBola() - getBolaJugador().RADIO_BOLA / 2, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);			//}
 		}
 		// se Pinta la flecha
 		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
@@ -185,15 +180,16 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println("HOLA");
+		System.out.println(getWidth()/ 2 + " ");
+		System.out.println(getHeight() - ESPACIO_SUELO_PANEL);
+		System.out.println("Evento:" + e.getX() + " " + e.getY());
 		setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
 		setLanzado(true);
 		if (getTempo().isRunning()) {
-			
+			getTempo().stop();
 		}
 		else {
 			getTempo().start();
-			System.out.println("HOLEEE");
 		}
 	}
 
