@@ -18,6 +18,7 @@ public class jlbEtiqueta extends JLabel {
 	private final static Color COLORBOTON = new Color(255, 255, 88);
 	public jlbEtiqueta(String text) {
 		setText(text);
+		setBackground(Color.BLUE);
 		setForeground(Color.BLACK);
 		Border line = new LineBorder(Color.BLACK);
 		Border margin = new EmptyBorder(5, 15, 5, 15);

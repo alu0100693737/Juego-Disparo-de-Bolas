@@ -6,17 +6,23 @@
  */
 package juego;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.lang.reflect.GenericArrayType;
 
 import javax.swing.JFrame;
 
+
+
 public class jfrAplicacion extends JFrame {
-	
+private static int prueba;	
 	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
-	private pnlJuego juego;
-	public pnlScore score;
+	private static pnlJuego juego;
+	public static pnlScore score;
 
 	public jfrAplicacion() throws IOException {
+		prueba = 0;
 		setLayout(new BorderLayout());
 		juego = new pnlJuego();
 		score = new pnlScore();
@@ -24,4 +30,23 @@ public class jfrAplicacion extends JFrame {
 		add(juego, BorderLayout.CENTER);
 		add(score, BorderLayout.EAST);
 	}
+	public static class timerHandler implements ActionListener {
+		//pinta elemento a elemento del camino
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//calcula uno por uno
+					if(prueba < 50) {
+						System.out.println("Dentro del timer");
+						prueba++;
+						System.out.println("Buda" + juego.getPosicionXBola() + " " + juego.getPosicionYBola());
+						juego.setPosicionXBola(juego.getPosicionXBola() - 10);
+						juego.setPosicionYBola(juego.getPosicionYBola() + 10);
+						System.out.println("Ivan" + juego.getPosicionXBola() + " " + juego.getPosicionYBola());
+
+						juego.repaint();
+					} else {
+						juego.getTempo().stop();
+					}
+				}
+			}
 }

@@ -13,12 +13,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class pnlJuego extends JPanel implements MouseListener, MouseMotionListener {
 	
@@ -31,18 +34,25 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	private int puntoYFlecha;
 	
 	private ArrayList<Bola> bolasJuego; 
-	public int posicionSueloHeight; 
 	
-	private double phi;
-	private int barb;
+	//movimiento de la bola
+	private rectaEntreDosPuntos rectaPuntos; 
+	private static int posicionXBola;
+	private static int posicionYBola;
+	
+	private static Timer tempo;
+	
+	private boolean lanzado;
 	
 	public pnlJuego() {
 		setPreferredSize(new Dimension(400, 600));
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
+		tempo = new Timer(500, new jfrAplicacion.timerHandler());
 		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL));
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
+		setLanzado(false);
 		addMouseMotionListener(this);
 		addMouseListener(this);
 	}
@@ -57,10 +67,16 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		g2.setStroke(new BasicStroke(3));
 		g2.draw(new Line2D.Float(0, getHeight() - ESPACIO_SUELO_PANEL, getWidth(), getHeight() - ESPACIO_SUELO_PANEL));
 		
-		// se Pinta la bola
 		g2.setColor(getBolaJugador().getColorBola());
-		g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA / 2 , getHeight() - 2 * ESPACIO_SUELO_PANEL, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
-		
+		// se Pinta la bola
+		if(!lanzado) {
+			g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA / 2 , getHeight() - 2 * ESPACIO_SUELO_PANEL, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+		} else {
+			//if(getRectaEntrePuntos().getPunto2().getX() > getWidth() / 2) { 
+			g2.fillOval(getWidth() / 2 + getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getHeight() - 2 * ESPACIO_SUELO_PANEL - getPosicionYBola(), getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+			System.out.println(getPosicionXBola() + "HOLA QUIE AFGsd" + getPosicionYBola());
+			//}
+		}
 		// se Pinta la flecha
 		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
 		Point ne = new Point(getPuntoXFlecha(), getPuntoYFlecha());
@@ -105,7 +121,43 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	public void setColores(ColoresContainer valor) {
 		colores = valor;
 	}
+	
+	public boolean getLanzado() {
+		return lanzado;
+	}
+	
+	public void setLanzado(boolean valor) {
+		lanzado = valor;
+	}
+	
+	public rectaEntreDosPuntos getRectaEntrePuntos() {
+		return rectaPuntos;
+	}
+	
+	public void setRectaEntrePuntos(Point p1, Point p2) {
+		rectaPuntos = new rectaEntreDosPuntos(p1, p2);
+	}
+	
+	public int getPosicionXBola() {
+		return posicionXBola;
+	}
 
+	public void setPosicionXBola(int valor) {
+		posicionXBola = valor;
+	}
+	
+	public int getPosicionYBola() {
+		return posicionYBola;
+	}
+
+	public void setPosicionYBola(int valor) {
+		posicionYBola = valor;
+	}
+	
+	public static Timer getTempo() {
+		return tempo;
+	}
+	
 	 public void mouseMoved(MouseEvent e) {
 		 setPuntoXFlecha(e.getX()); 
 		 setPuntoYFlecha(e.getY());
@@ -119,27 +171,30 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		System.out.println("HOLA");
-		// TODO Auto-generated method stub
-		
+		setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
+		setLanzado(true);
+		if (getTempo().isRunning()) {
+			
+		}
+		else {
+			getTempo().start();
+			System.out.println("HOLEEE");
+		}
 	}
 
 	@Override

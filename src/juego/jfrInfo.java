@@ -32,7 +32,8 @@ public class jfrInfo extends JFrame {
 	
 	public jfrInfo() {
 		setLayout(new BorderLayout(5, 5));
-		setBackground(COLOR_FONDO);
+		pack();
+		
 		setEntradas(new JPanel());
 		getEntradas().setLayout(new GridLayout(3, 1, 5, 5));
 		getEntradas().add(NOMBRE);

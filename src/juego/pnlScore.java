@@ -64,8 +64,8 @@ public static class abrirPanelInfo implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {	
 			jfrInfo info = new jfrInfo();
 			info.setTitle("Juego Disparo Bolas");
-			info.setSize(450, 250);
 			info.pack();
+			info.setResizable(false);
 			info.setLocationRelativeTo(null); // Center the frame
 			info.setVisible(true);
 		}	
