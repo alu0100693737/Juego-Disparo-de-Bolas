@@ -38,11 +38,10 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	
 	public pnlJuego() {
 		setPreferredSize(new Dimension(400, 600));
-		System.out.println("HOLA");
 		System.out.println(getSize().getWidth() + " " + getSize().getHeight());
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
-		tempo = new Timer(500, new jfrAplicacion.timerHandler());
+		tempo = new Timer(50, new jfrAplicacion.timerHandler());
 		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL));
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
@@ -64,7 +63,9 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		// se Pinta el suelo
 		g2.setStroke(new BasicStroke(3));
 		g2.draw(new Line2D.Float(0, getHeight() - ESPACIO_SUELO_PANEL, getWidth(), getHeight() - ESPACIO_SUELO_PANEL));
-		
+		g2.setStroke(new BasicStroke(3));
+		g2.draw(new Line2D.Float(getWidth() - 3, 0, getWidth() - 3, getHeight() - ESPACIO_SUELO_PANEL));
+
 		g2.setColor(getBolaJugador().getColorBola());
 		// se Pinta la bola
 		if(!lanzado) {
@@ -79,9 +80,9 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		
 		// se Pinta la direccion de la flecha
 		if(ne.x > getWidth() / 2) {
-			g2.drawLine(ne.x, ne.y, ne.x - ne.x / 10 , ne.y + ne.y / 5);//drawArrowHead(g2, sw, ne, Color.red);
+			g2.drawLine(ne.x, ne.y, ne.x - ne.x / 10 , ne.y + ne.y / 10);//drawArrowHead(g2, sw, ne, Color.red);
 		} else {
-			g2.drawLine(ne.x, ne.y, ne.x + ne.x / 10 , ne.y + ne.y /5);
+			g2.drawLine(ne.x, ne.y, ne.x + ne.x / 10 , ne.y + ne.y / 10);
 		}
 	}
 	

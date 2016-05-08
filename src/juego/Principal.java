@@ -8,7 +8,7 @@ import java.io.IOException;
  * 1.0v
  * Clase para la prueba de la aplicacion
  */
-import javax.swing.JFrame;
+
 
 public class Principal {
 	public static void main(String[] args) throws IOException {

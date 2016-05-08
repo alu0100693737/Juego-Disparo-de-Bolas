@@ -17,9 +17,9 @@ import javax.swing.JPanel;
 
 public class jfrInfo extends JFrame {
 	
-	private final static Color COLOR_FONDO = new Color(141, 206, 255);
+	private final static Color COLOR_FONDO = new Color(141, 206, 255);   // Amarillo
 	
-	private final static jlbEtiqueta NOMBRE = new jlbEtiqueta("Nombre:");
+	private  static jlbEtiqueta NOMBRE = new jlbEtiqueta("Nombre:");
 	private final static jlbEtiqueta EMAIL = new jlbEtiqueta("Email:");
 	private final static jlbEtiqueta ASIGNATURA = new jlbEtiqueta("Asignatura:");
 	
@@ -33,18 +33,20 @@ public class jfrInfo extends JFrame {
 	public jfrInfo() {
 		setLayout(new BorderLayout(5, 5));
 		pack();
-		
+		setBackground(COLOR_FONDO);
 		setEntradas(new JPanel());
 		getEntradas().setLayout(new GridLayout(3, 1, 5, 5));
 		getEntradas().add(NOMBRE);
 		getEntradas().add(EMAIL);
 		getEntradas().add(ASIGNATURA);
+		getEntradas().setBackground(COLOR_FONDO);
 		
 		setDatos(new JPanel());
 		getDatos().setLayout(new GridLayout(3, 1, 5, 5));
 		getDatos().add(VALOR_NOMBRE);
 		getDatos().add(VALOR_EMAIL);
 		getDatos().add(VALOR_ASIGNATURA);
+		getDatos().setBackground(COLOR_FONDO);
 		
 		add(getEntradas(), BorderLayout.WEST);
 		add(getDatos(), BorderLayout.CENTER);

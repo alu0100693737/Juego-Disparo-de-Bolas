@@ -11,12 +11,13 @@ import javax.swing.JButton;
 
 public final class jbnBotonInfo {
 	private JButton info;
-	
+	private final static Color COLOR_FONDO = new Color(141, 206, 255);
 	public jbnBotonInfo() throws IOException {
 		BufferedImage myPicture = ImageIO.read(new File("info.png"));
 		setInfo(new JButton(new ImageIcon(myPicture)));
 		getInfo().setBackground(Color.WHITE);
 		getInfo().setBorder(null);
+		getInfo().setBackground(COLOR_FONDO);
 	}
 	
 	public JButton getInfo() {

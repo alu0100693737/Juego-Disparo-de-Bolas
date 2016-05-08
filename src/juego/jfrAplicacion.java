@@ -14,7 +14,7 @@ import java.lang.reflect.GenericArrayType;
 import javax.swing.JFrame;
 
 public class jfrAplicacion extends JFrame {
-private static int prueba;	
+	private static int prueba;	
 	private final static int PRECISION_PINTAR = 2; // se pinta en cada pixel
 	private static pnlJuego juego;
 	public static pnlScore score;
@@ -24,31 +24,34 @@ private static int prueba;
 		setLayout(new BorderLayout());
 		juego = new pnlJuego();
 		score = new pnlScore();
-		
+
 		add(juego, BorderLayout.CENTER);
 		add(score, BorderLayout.EAST);
 	}
 	public static class timerHandler implements ActionListener {
 		//pinta elemento a elemento del camino
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					//calcula uno por uno
-					if(prueba < 50) {
-						System.out.println("Dentro del timer");
-						prueba++;
-						if(juego.getRectaEntrePuntos().getPunto2().getX() < juego.getPosicionXBola()) {
-						juego.setPosicionXBola(juego.getPosicionXBola() - PRECISION_PINTAR);
-						juego.setPosicionYBola(juego.getHeight() -  juego.getBolaJugador().RADIO_BOLA / 2 - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 + juego.getPosicionXBola()));
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//calcula uno por uno
+			if(prueba < 1000) {
 
-						} else {
-							juego.setPosicionXBola(juego.getPosicionXBola() + PRECISION_PINTAR);
-							juego.setPosicionYBola(juego.getHeight() -  juego.getBolaJugador().RADIO_BOLA / 2 + juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
-
-						}
-						juego.repaint();
-					} else {
-						juego.getTempo().stop();
-					}
+				prueba++;
+				if(juego.getRectaEntrePuntos().getPunto2().getX() < (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
+					juego.setPosicionXBola(juego.getPosicionXBola() - PRECISION_PINTAR);
+					juego.setPosicionYBola(juego.getHeight() - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
+				} else if(juego.getRectaEntrePuntos().getPunto2().getX() > (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
+					System.out.println("NOO");
+					System.out.println(juego.getRectaEntrePuntos().getPunto2().getX() +  " X ");
+					
+					juego.setPosicionXBola(juego.getPosicionXBola() + PRECISION_PINTAR);
+					juego.setPosicionYBola(juego.getHeight() - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
+				} else {
+					
 				}
+				juego.repaint();
+			} else {
+				juego.getTempo().stop();
 			}
+		}
+	}
 }
