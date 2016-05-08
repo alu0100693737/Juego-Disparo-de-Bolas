@@ -7,9 +7,14 @@
 
 package juego;
 
+import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class pnlScore extends JPanel {
@@ -22,6 +27,7 @@ public class pnlScore extends JPanel {
 		setScore(new jlbEtiqueta("__"));
 		setBoton(new jbnBotonInfo());
 		add(getScore());
+		getBoton().getInfo().addActionListener(new abrirPanelInfo());
 		add(getBoton().getInfo());
 	}
 	
@@ -39,5 +45,17 @@ public class pnlScore extends JPanel {
 	
 	public void setBoton(jbnBotonInfo valor) {
 		boton = valor;
+	}
+	
+public static class abrirPanelInfo implements ActionListener {
+		
+		//crea un color aleatorio
+		public void actionPerformed(ActionEvent arg0) {	
+			jfrInfo info = new jfrInfo();
+			info.setTitle("Juego Disparo Bolas");
+			info.setSize(400, 250);
+			info.setLocationRelativeTo(null); // Center the frame
+			info.setVisible(true);
+		}	
 	}
 }
