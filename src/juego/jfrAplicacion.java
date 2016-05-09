@@ -54,7 +54,8 @@ public class jfrAplicacion extends JFrame {
 					}
 				} else {
 					System.out.println("Choca con el techo");
-					System.out.println("Tamano " + getJuego().getBolasJuego().size());
+					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
+					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
@@ -73,10 +74,11 @@ public class jfrAplicacion extends JFrame {
 					}
 				} else {
 					System.out.println("Chocando techo");
-					getJuego().getTempo().stop();
-					System.out.println("Tamano " + getJuego().getBolasJuego().size());
+					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
+					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
+					getJuego().getTempo().stop();
 					getJuego().setLanzado(false);
 				}
 			} else {

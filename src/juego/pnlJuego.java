@@ -68,7 +68,6 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 
 		//se pintan las bolas que existen
 		for (int i = 0; i < getBolasJuego().size(); i++) {
-			System.out.println("PINTANDO ");
 			g2.setColor(getBolasJuego().get(i).getColorBola());
 			g2.fillOval(getBolasJuego().get(i).getCoordX(), getBolasJuego().get(i).getCoordY(), getBolasJuego().get(i).RADIO_BOLA, getBolasJuego().get(i).RADIO_BOLA);
 		}
