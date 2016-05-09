@@ -38,7 +38,6 @@ public class jfrAplicacion extends JFrame {
 		//pinta elemento a elemento del camino
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
 			//calcula uno por uno
 			if(getJuego().getRectaEntrePuntos().getPunto2().getX() <= (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
 				if(getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) {
@@ -56,9 +55,13 @@ public class jfrAplicacion extends JFrame {
 					System.out.println("Choca con el techo");
 					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
 					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
+					getJuego().getBolaJugador().calcularAreaBola();
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
+					getJuego().setBolaJugador(new Bola(getJuego().getWidth() / 2, getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL));
+					getJuego().setPosicionYBola(getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL);
+					getJuego().setPosicionXBola(getJuego().getWidth() / 2);
 					getJuego().setLanzado(false);
 				}
 			} else if(getJuego().getRectaEntrePuntos().getPunto2().getX() > (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
@@ -76,9 +79,13 @@ public class jfrAplicacion extends JFrame {
 					System.out.println("Chocando techo");
 					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
 					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
+					getJuego().getBolaJugador().calcularAreaBola();
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
+					getJuego().setBolaJugador(new Bola(getJuego().getWidth() / 2, getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL));
+					getJuego().setPosicionYBola(getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL);
+					getJuego().setPosicionXBola(getJuego().getWidth() / 2);
 					getJuego().setLanzado(false);
 				}
 			} else {

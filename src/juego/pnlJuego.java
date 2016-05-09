@@ -46,6 +46,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
 		
+		
 		setBolasJuego(new ArrayList<Bola>());
 		//crearBolas(20); //se Crean 20 Bolas en posiciones correctas
 
@@ -71,6 +72,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 			g2.setColor(getBolasJuego().get(i).getColorBola());
 			g2.fillOval(getBolasJuego().get(i).getCoordX(), getBolasJuego().get(i).getCoordY(), getBolasJuego().get(i).RADIO_BOLA, getBolasJuego().get(i).RADIO_BOLA);
 		}
+		compararCercanias();
 		
 		g2.setColor(getBolaJugador().getColorBola());
 		// se Pinta la bola
@@ -198,14 +200,11 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	@Override
 	public void mousePressed(MouseEvent e) {
 		
-		if (getTempo().isRunning()) {
-			
-		}
-		else {
+		if (!getTempo().isRunning()) {
 			System.out.println("Altura: " + getHeight());
+			setLanzado(true);
 			setPosicionYBola(getHeight() - ESPACIO_SUELO_PANEL);
 			setPosicionXBola(getWidth() / 2);
-			setLanzado(true);
 			setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
 			System.out.println("Pendiente " + getRectaEntrePuntos().getEcuacion().getPendiente());
 			getTempo().start();
@@ -215,6 +214,28 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
+	}
+	
+	public void compararCercanias() {
+		for (int i = 0; i < getBolasJuego().size(); i++) {
+			Point aux = new Point(getPosicionXBola(), getPosicionYBola());
+			
+			if(getBolasJuego().get(i).getPuntosCircunferencia().contains(aux)) {
+				System.out.println("HOLA");
+			}
+			
+			/*
+			Graphics g = getGraphics();
+			g.setColor(Color.BLACK);
+			for (int j = 0; j < 360; j++) {
+				g.fillOval((int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getX(), 
+						(int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getY(), 5, 5);
+				}*/
+			
+		}
 		
+			
+			
+			
 	}
 }
