@@ -6,15 +6,10 @@
  */
 package juego;
 import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.lang.reflect.GenericArrayType;
-
 import javax.swing.JFrame;
-
-import org.omg.PortableServer.ServantRetentionPolicyOperations;
 
 public class jfrAplicacion extends JFrame {
 	private static int prueba;	
@@ -53,11 +48,15 @@ public class jfrAplicacion extends JFrame {
 					}else {
 						System.out.println("Choca con con el lado izquierdo");
 						//cambiamos la direccion
-						getJuego().getTempo().stop();
-						getJuego().setLanzado(false);
+						getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getPosicionXBola(), getJuego().getPosicionYBola());
+						getJuego().setPosicionXBola(getJuego().getPosicionXBola() + PRECISION_PINTAR);
+						getJuego().setPosicionYBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getPosicionXBola()));
 					}
 				} else {
 					System.out.println("Choca con el techo");
+					System.out.println("Tamano " + getJuego().getBolasJuego().size());
+					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
+					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
 					getJuego().setLanzado(false);
 				}
@@ -75,6 +74,9 @@ public class jfrAplicacion extends JFrame {
 				} else {
 					System.out.println("Chocando techo");
 					getJuego().getTempo().stop();
+					System.out.println("Tamano " + getJuego().getBolasJuego().size());
+					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
+					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().setLanzado(false);
 				}
 			} else {

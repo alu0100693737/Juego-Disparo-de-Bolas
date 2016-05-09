@@ -47,6 +47,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		setPuntoXFlecha(getHeight());
 		
 		setBolasJuego(new ArrayList<Bola>());
+		//crearBolas(20); //se Crean 20 Bolas en posiciones correctas
 
 		setLanzado(false);
 		addMouseMotionListener(this);
@@ -65,6 +66,13 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		g2.setStroke(new BasicStroke(3));
 		g2.draw(new Line2D.Float(getWidth() - 3, 0, getWidth() - 3, getHeight() - ESPACIO_SUELO_PANEL));
 
+		//se pintan las bolas que existen
+		for (int i = 0; i < getBolasJuego().size(); i++) {
+			System.out.println("PINTANDO ");
+			g2.setColor(getBolasJuego().get(i).getColorBola());
+			g2.fillOval(getBolasJuego().get(i).getCoordX(), getBolasJuego().get(i).getCoordY(), getBolasJuego().get(i).RADIO_BOLA, getBolasJuego().get(i).RADIO_BOLA);
+		}
+		
 		g2.setColor(getBolaJugador().getColorBola());
 		// se Pinta la bola
 		if(!lanzado) {
@@ -200,6 +208,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 			setPosicionXBola(getWidth() / 2);
 			setLanzado(true);
 			setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
+			System.out.println("Pendiente " + getRectaEntrePuntos().getEcuacion().getPendiente());
 			getTempo().start();
 		}
 	}
