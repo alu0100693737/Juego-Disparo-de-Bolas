@@ -6,6 +6,7 @@
  */
 package juego;
 import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -17,7 +18,7 @@ import org.omg.PortableServer.ServantRetentionPolicyOperations;
 
 public class jfrAplicacion extends JFrame {
 	private static int prueba;	
-	private final static int PRECISION_PINTAR = 2; // se pinta en cada pixel
+	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
 	private static pnlJuego juego;
 	public static pnlScore score;
 
@@ -27,36 +28,64 @@ public class jfrAplicacion extends JFrame {
 		juego = new pnlJuego();
 		score = new pnlScore();
 
-		add(juego, BorderLayout.CENTER);
-		add(score, BorderLayout.EAST);
+		add(getJuego(), BorderLayout.CENTER);
+		add(getScore(), BorderLayout.EAST);
+	}
+
+	public static pnlJuego getJuego() {
+		return juego;
+	}
+
+	public static pnlScore getScore() {
+		return score;
 	}
 	public static class timerHandler implements ActionListener {
 		//pinta elemento a elemento del camino
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
 			//calcula uno por uno
-			if(prueba < 1000) {
-
-				prueba++;
-				if(juego.getRectaEntrePuntos().getPunto2().getX() <= (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
-					if(juego.getPosicionYBola() + juego.getHeight() - 2 * juego.getBolaJugador().RADIO_BOLA - 30 > 0) {
-
-					juego.setPosicionXBola(juego.getPosicionXBola() - PRECISION_PINTAR);
-					juego.setPosicionYBola(juego.getHeight() - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
-					}
-					} else if(juego.getRectaEntrePuntos().getPunto2().getX() > (juego.getWidth()/2  - juego.getBolaJugador().RADIO_BOLA / 2)) {
-
-					if(juego.getPosicionYBola() + juego.getHeight() - 2 * juego.getBolaJugador().RADIO_BOLA - 30 > 0) {
-						juego.setPosicionXBola(juego.getPosicionXBola() + PRECISION_PINTAR);
-						juego.setPosicionYBola(juego.getHeight() - juego.getRectaEntrePuntos().calcularPunto(juego.getWidth()/ 2 - juego.getPosicionXBola()));
+			if(getJuego().getRectaEntrePuntos().getPunto2().getX() <= (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
+				if(getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) {
+					if(getJuego().getPosicionXBola() > getJuego().getBolaJugador().RADIO_BOLA/2) {
+						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
+						getJuego().setPosicionXBola(getJuego().getRectaEntrePuntos().calcularPunto(getJuego().getPosicionYBola()));
+					}else {
+						System.out.println("Choca con con el lado izquierdo");
+						//cambiamos la direccion
+						getJuego().getTempo().stop();
+						getJuego().setLanzado(false);
 					}
 				} else {
-
+					System.out.println("Choca con el techo");
+					getJuego().getTempo().stop();
+					getJuego().setLanzado(false);
 				}
-				juego.repaint();
+			} else if(getJuego().getRectaEntrePuntos().getPunto2().getX() > (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
+				if(getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) {
+					if(getJuego().getPosicionXBola() < getJuego().getWidth() - getJuego().getBolaJugador().RADIO_BOLA / 2) {
+						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
+						getJuego().setPosicionXBola(getJuego().getRectaEntrePuntos().calcularPunto(getJuego().getPosicionYBola()));
+					} else {
+						System.out.println("Chocando derecha");
+						getJuego().getTempo().stop();
+						/*setPosicionYBola(getHeight() - ESPACIO_SUELO_PANEL);
+						setPosicionXBola(getWidth() / 2);
+						setLanzado(true);
+						setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
+						getTempo().start();*/
+						
+						getJuego().setLanzado(false);
+					}
+				} else {
+					System.out.println("Chocando techo");
+					getJuego().getTempo().stop();
+					getJuego().setLanzado(false);
+				}
 			} else {
-				juego.getTempo().stop();
+				System.out.println("Perpendicular");
 			}
+			getJuego().repaint();
 		}
 	}
 }

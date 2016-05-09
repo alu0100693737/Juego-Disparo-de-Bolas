@@ -41,13 +41,12 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		System.out.println(getSize().getWidth() + " " + getSize().getHeight());
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
-		tempo = new Timer(50, new jfrAplicacion.timerHandler());
+		tempo = new Timer(8, new jfrAplicacion.timerHandler());
 		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL));
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
 		
-		System.out.println("Creando");
-		System.out.println(getPosicionXBola() + " " + getPosicionYBola());
+		setBolasJuego(new ArrayList<Bola>());
 
 		setLanzado(false);
 		addMouseMotionListener(this);
@@ -71,7 +70,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		if(!lanzado) {
 			g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA/2 , getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA , getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
 		} else {
-			g2.fillOval(getWidth()/2 + getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getHeight() - 2 *  ESPACIO_SUELO_PANEL + getPosicionYBola() - getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);			//}
+			g2.fillOval(getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getPosicionYBola() - getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);			//}
 		}
 		// se Pinta la flecha
 		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
@@ -152,6 +151,14 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		posicionYBola = valor;
 	}
 	
+	public ArrayList<Bola> getBolasJuego() {
+		return bolasJuego;
+	}
+	
+	public void setBolasJuego(ArrayList<Bola> valor) {
+		bolasJuego = valor;
+	}
+	
 	public static Timer getTempo() {
 		return tempo;
 	}
@@ -183,15 +190,16 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		System.out.println(getWidth()/ 2 + " ");
-		System.out.println(getHeight() - ESPACIO_SUELO_PANEL);
-		System.out.println("Evento:" + e.getX() + " " + e.getY());
-		setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
-		setLanzado(true);
+		
 		if (getTempo().isRunning()) {
-			getTempo().stop();
+			
 		}
 		else {
+			System.out.println("Altura: " + getHeight());
+			setPosicionYBola(getHeight() - ESPACIO_SUELO_PANEL);
+			setPosicionXBola(getWidth() / 2);
+			setLanzado(true);
+			setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
 			getTempo().start();
 		}
 	}
