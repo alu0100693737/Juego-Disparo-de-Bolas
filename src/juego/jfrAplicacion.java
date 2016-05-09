@@ -49,7 +49,7 @@ public class jfrAplicacion extends JFrame {
 				if(getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) {
 					if(getJuego().getPosicionXBola() > getJuego().getBolaJugador().RADIO_BOLA/2) {
 						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
-						getJuego().setPosicionXBola(getJuego().getRectaEntrePuntos().calcularPunto(getJuego().getPosicionYBola()));
+						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));
 					}else {
 						System.out.println("Choca con con el lado izquierdo");
 						//cambiamos la direccion
@@ -65,17 +65,12 @@ public class jfrAplicacion extends JFrame {
 				if(getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) {
 					if(getJuego().getPosicionXBola() < getJuego().getWidth() - getJuego().getBolaJugador().RADIO_BOLA / 2) {
 						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
-						getJuego().setPosicionXBola(getJuego().getRectaEntrePuntos().calcularPunto(getJuego().getPosicionYBola()));
+						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));
 					} else {
 						System.out.println("Chocando derecha");
-						getJuego().getTempo().stop();
-						/*setPosicionYBola(getHeight() - ESPACIO_SUELO_PANEL);
-						setPosicionXBola(getWidth() / 2);
-						setLanzado(true);
-						setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
-						getTempo().start();*/
-						
-						getJuego().setLanzado(false);
+						getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getPosicionXBola(), getJuego().getPosicionYBola());
+						getJuego().setPosicionXBola(getJuego().getPosicionXBola() - PRECISION_PINTAR);
+						getJuego().setPosicionYBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getPosicionXBola()));
 					}
 				} else {
 					System.out.println("Chocando techo");

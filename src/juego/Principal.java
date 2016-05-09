@@ -14,12 +14,12 @@ import java.io.IOException;
 public class Principal {
 	public static void main(String[] args) throws IOException {
 		
-		ecuacionRecta prueba = new ecuacionRecta(1, 3, 2, -5);
-		/*jfrAplicacion prueba = new jfrAplicacion();
+		//ecuacionRecta prueba = new ecuacionRecta(1, 3, 2, -5);
+		jfrAplicacion prueba = new jfrAplicacion();
 		prueba.setTitle("Juego Disparo Bolas");
 		prueba.setSize(500, 250);
 		prueba.setLocationRelativeTo(null); // Center the frame
 		//prueba.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		prueba.setVisible(true);*/
+		prueba.setVisible(true);
 	}
 }
