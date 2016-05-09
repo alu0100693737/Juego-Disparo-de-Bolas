@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Principal {
 	public static void main(String[] args) throws IOException {
 		
-		ecuacionRecta prueba = new ecuacionRecta(7, -8, 6, 1 );
+		ecuacionRecta prueba = new ecuacionRecta(1, 3, 2, -5);
 		/*jfrAplicacion prueba = new jfrAplicacion();
 		prueba.setTitle("Juego Disparo Bolas");
 		prueba.setSize(500, 250);
