@@ -9,6 +9,7 @@ package juego;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ public class Bola {
 	private int coordenadaX;
 	private int coordenadaY;
 	private ArrayList<Point> puntosCircunfencia;
+	private Ellipse2D.Double dibujoBola;
 	
 	public Bola(int coordX, int coordY) {
 		setTipoColores(new ColoresContainer());
@@ -29,6 +31,7 @@ public class Bola {
 		int aux1 = aux.nextInt() % getTipoColores().getArrayColores().size();
 		setColorBola(getTipoColores().getArrayColores().get(Math.abs(aux.nextInt() % getTipoColores().getArrayColores().size())));
 		setPuntosCircunferencia(new ArrayList<Point>());
+		dibujoBola = new Ellipse2D.Double();
 	}
 	
 	public void calcularAreaBola() {
@@ -82,5 +85,13 @@ public class Bola {
 	
 	public void setPuntosCircunferencia(ArrayList<Point> valor) {
 		puntosCircunfencia = valor;
+	}
+	
+	public Ellipse2D.Double getDibujoBola() {
+		return dibujoBola;
+	}
+	
+	public void setDibujoBola(Ellipse2D.Double valor) {
+		dibujoBola = valor;
 	}
 }

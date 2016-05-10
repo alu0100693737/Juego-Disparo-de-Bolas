@@ -12,9 +12,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Shape;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -60,7 +62,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		// TODO Auto-generated method stub
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
-
+		compararCercanias();
 		// se Pinta el suelo
 		g2.setStroke(new BasicStroke(3));
 		g2.draw(new Line2D.Float(0, getHeight() - ESPACIO_SUELO_PANEL, getWidth(), getHeight() - ESPACIO_SUELO_PANEL));
@@ -70,16 +72,20 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		//se pintan las bolas que existen
 		for (int i = 0; i < getBolasJuego().size(); i++) {
 			g2.setColor(getBolasJuego().get(i).getColorBola());
-			g2.fillOval(getBolasJuego().get(i).getCoordX(), getBolasJuego().get(i).getCoordY(), getBolasJuego().get(i).RADIO_BOLA, getBolasJuego().get(i).RADIO_BOLA);
-		
+			g2.fill(getBolasJuego().get(i).getDibujoBola());
 		}
+		
+		
 
 		g2.setColor(getBolaJugador().getColorBola());
 		// se Pinta la bola
+	
 		if(!lanzado) {
-			g2.fillOval(getWidth()/2 - getBolaJugador().RADIO_BOLA/2 , getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA , getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+			Ellipse2D.Double hole = new Ellipse2D.Double(getWidth()/2 - getBolaJugador().RADIO_BOLA/2 , getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA , getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+			g2.fill(hole);
 		} else {
-			g2.fillOval(getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getPosicionYBola() - getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);			//}
+			Ellipse2D.Double hole = new Ellipse2D.Double(getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getPosicionYBola() - getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+			g2.fill(hole);
 		}
 		// se Pinta la flecha
 		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
@@ -218,8 +224,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 
 	public boolean compararCercanias() {
 		for (int i = 0; i < getBolasJuego().size(); i++) {
-			for (int j = 0; j < 360; j++) {
-				if((getBolasJuego().get(i).getPuntosCircunferencia().get(j).getX()) == getPosicionXBola() + getBolaJugador().RADIO_BOLA / 2) {
+				if(getBolasJuego().get(i).getDibujoBola().intersects(getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2 - 2, getPosicionYBola() - getBolaJugador().RADIO_BOLA / 2 - 2, getPosicionXBola() + getBolaJugador().RADIO_BOLA / 2 + 2, getPosicionYBola() + getBolaJugador().RADIO_BOLA / 2 + 2)) {
 				//if(getBolasJuego().get(i).getPuntosCircunferencia().get(j).getX() == getBolaJugador().calcularAreaBola1().get(j).getX()){
 				//	System.out.println("PEPE");
 				//}
@@ -238,7 +243,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 				}
 
 		}*/
-		}
+		
 		return false;
 	}
 }

@@ -8,6 +8,7 @@ package juego;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
 import java.io.IOException;
 import javax.swing.JFrame;
 
@@ -41,7 +42,7 @@ public class jfrAplicacion extends JFrame {
 			//calcula uno por uno
 			//System.out.println("ESEEE" + getJuego().getBolaJugador().getPuntosCircunferencia().size());
 			if(getJuego().getRectaEntrePuntos().getPunto2().getX() <= (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
-				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0)) {
+				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) && (!getJuego().compararCercanias())) {
 					if(getJuego().getPosicionXBola() > getJuego().getBolaJugador().RADIO_BOLA/2) {
 						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
 						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));
@@ -66,7 +67,7 @@ public class jfrAplicacion extends JFrame {
 					getJuego().setLanzado(false);
 				}
 			} else if(getJuego().getRectaEntrePuntos().getPunto2().getX() > (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
-				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0)) {
+				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) && (!getJuego().compararCercanias())) {
 					if(getJuego().getPosicionXBola() < getJuego().getWidth() - getJuego().getBolaJugador().RADIO_BOLA / 2) {
 						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
 						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));
@@ -81,6 +82,8 @@ public class jfrAplicacion extends JFrame {
 					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
 					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolaJugador().calcularAreaBola();
+					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
+					getJuego().getBolaJugador().setDibujoBola(aux);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
