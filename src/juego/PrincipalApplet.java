@@ -15,7 +15,7 @@ public class PrincipalApplet {
 		frame.pack();
 		frame.setLocationRelativeTo(null); // Center the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(600, 450));
+		frame.setSize(new Dimension(600, 450));
 		
 		jfrAplicacion applet = new jfrAplicacion();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

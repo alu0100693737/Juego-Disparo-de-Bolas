@@ -59,7 +59,6 @@ public class pnlScore extends JPanel {
 	}
 	
 public static class abrirPanelInfo implements ActionListener {
-		
 		//crea un color aleatorio
 		public void actionPerformed(ActionEvent arg0) {	
 			jfrInfo info = new jfrInfo();
