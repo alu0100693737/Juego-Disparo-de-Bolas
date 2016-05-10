@@ -39,8 +39,9 @@ public class jfrAplicacion extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//calcula uno por uno
+			//System.out.println("ESEEE" + getJuego().getBolaJugador().getPuntosCircunferencia().size());
 			if(getJuego().getRectaEntrePuntos().getPunto2().getX() <= (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
-				if(getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) {
+				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0)) {
 					if(getJuego().getPosicionXBola() > getJuego().getBolaJugador().RADIO_BOLA/2) {
 						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
 						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));
@@ -65,7 +66,7 @@ public class jfrAplicacion extends JFrame {
 					getJuego().setLanzado(false);
 				}
 			} else if(getJuego().getRectaEntrePuntos().getPunto2().getX() > (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
-				if(getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) {
+				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0)) {
 					if(getJuego().getPosicionXBola() < getJuego().getWidth() - getJuego().getBolaJugador().RADIO_BOLA / 2) {
 						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
 						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));

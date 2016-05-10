@@ -36,6 +36,13 @@ public class Bola {
 			getPuntosCircunferencia().add(new Point((int)(RADIO_BOLA / 2 * Math.cos(Math.toDegrees(i)) + getCoordX() + RADIO_BOLA/2), (int)(RADIO_BOLA / 2 * Math.sin(Math.toDegrees(i)) + getCoordY() + RADIO_BOLA/2)));
 		}
 	}
+	public ArrayList<Point> calcularAreaBola1() {
+		ArrayList<Point> puntos = new ArrayList<Point>();
+		for (int i = 0; i < ANGULOS; i++) {
+			puntos.add(new Point((int)(RADIO_BOLA / 2 * Math.cos(Math.toDegrees(i)) + getCoordX() + RADIO_BOLA/2), (int)(RADIO_BOLA / 2 * Math.sin(Math.toDegrees(i)) + getCoordY() + RADIO_BOLA/2)));
+		}
+		return puntos;
+	}
 	
 	public Color getColorBola() {
 		return colorBola;
