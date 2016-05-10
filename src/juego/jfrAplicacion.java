@@ -10,9 +10,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.io.IOException;
+
+import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-public class jfrAplicacion extends JFrame {
+public class jfrAplicacion extends JApplet {
 	private static int prueba;	
 	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
 	private static pnlJuego juego;
@@ -42,56 +44,56 @@ public class jfrAplicacion extends JFrame {
 			//calcula uno por uno
 			//System.out.println("ESEEE" + getJuego().getBolaJugador().getPuntosCircunferencia().size());
 			if(getJuego().getRectaEntrePuntos().getPunto2().getX() <= (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
-				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) && (!getJuego().compararCercanias())) {
-					if(getJuego().getPosicionXBola() > getJuego().getBolaJugador().RADIO_BOLA/2) {
-						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
-						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));
+				if((getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA > 0) && (!getJuego().compararCercanias())) {
+					if(getJuego().getBolaJugador().getCoordX() > getJuego().getBolaJugador().RADIO_BOLA/2) {
+						getJuego().getBolaJugador().setCoordY(getJuego().getBolaJugador().getCoordY() - PRECISION_PINTAR);
+						getJuego().getBolaJugador().setCoordX((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getBolaJugador().getCoordY()));
 					}else {
 						System.out.println("Choca con con el lado izquierdo");
 						//cambiamos la direccion
-						getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getPosicionXBola(), getJuego().getPosicionYBola());
-						getJuego().setPosicionXBola(getJuego().getPosicionXBola() + PRECISION_PINTAR);
-						getJuego().setPosicionYBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getPosicionXBola()));
+						getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getBolaJugador().getCoordX(), getJuego().getBolaJugador().getCoordY());
+						getJuego().getBolaJugador().setCoordX(getJuego().getBolaJugador().getCoordX() + PRECISION_PINTAR);
+						getJuego().getBolaJugador().setCoordY((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getBolaJugador().getCoordX()));
 					}
 				} else {
 					System.out.println("Choca con el techo");
-					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
-					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
+					//getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
+					//getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolaJugador().calcularAreaBola();
-					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
+					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getBolaJugador().getCoordX() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
 					getJuego().getBolaJugador().setDibujoBola(aux);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
 					getJuego().setBolaJugador(new Bola(getJuego().getWidth() / 2, getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL));
-					getJuego().setPosicionYBola(getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL);
-					getJuego().setPosicionXBola(getJuego().getWidth() / 2);
+					getJuego().getBolaJugador().setCoordY(getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL);
+					getJuego().getBolaJugador().setCoordX(getJuego().getWidth() / 2);
 					getJuego().setLanzado(false);
 				}
 			} else if(getJuego().getRectaEntrePuntos().getPunto2().getX() > (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
-				if((getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA > 0) && (!getJuego().compararCercanias())) {
-					if(getJuego().getPosicionXBola() < getJuego().getWidth() - getJuego().getBolaJugador().RADIO_BOLA / 2) {
-						getJuego().setPosicionYBola(getJuego().getPosicionYBola() - PRECISION_PINTAR);
-						getJuego().setPosicionXBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getPosicionYBola()));
+				if((getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA > 0) && (!getJuego().compararCercanias())) {
+					if(getJuego().getBolaJugador().getCoordX() < getJuego().getWidth() - getJuego().getBolaJugador().RADIO_BOLA / 2) {
+						getJuego().getBolaJugador().setCoordY(getJuego().getBolaJugador().getCoordY() - PRECISION_PINTAR);
+						getJuego().getBolaJugador().setCoordX((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularX(getJuego().getBolaJugador().getCoordY()));
 					} else {
 						System.out.println("Chocando derecha");
-						getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getPosicionXBola(), getJuego().getPosicionYBola());
-						getJuego().setPosicionXBola(getJuego().getPosicionXBola() - PRECISION_PINTAR);
-						getJuego().setPosicionYBola((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getPosicionXBola()));
+						getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getBolaJugador().getCoordX(), getJuego().getBolaJugador().getCoordY());
+						getJuego().getBolaJugador().setCoordX(getJuego().getBolaJugador().getCoordX() - PRECISION_PINTAR);
+						getJuego().getBolaJugador().setCoordY((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getBolaJugador().getCoordX()));
 					}
 				} else {
 					System.out.println("Chocando techo");
-					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
-					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
+					//getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
+					//getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolaJugador().calcularAreaBola();
-					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
+					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getBolaJugador().getCoordX() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
 					getJuego().getBolaJugador().setDibujoBola(aux);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
 					getJuego().setBolaJugador(new Bola(getJuego().getWidth() / 2, getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL));
-					getJuego().setPosicionYBola(getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL);
-					getJuego().setPosicionXBola(getJuego().getWidth() / 2);
+					getJuego().getBolaJugador().setCoordY(getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL);
+					getJuego().getBolaJugador().setCoordX(getJuego().getWidth() / 2);
 					getJuego().setLanzado(false);
 				}
 			} else {

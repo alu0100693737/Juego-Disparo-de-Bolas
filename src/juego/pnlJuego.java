@@ -33,25 +33,19 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 
 	//movimiento de la bola
 	private rectaEntreDosPuntos rectaPuntos; 
-	private static int posicionXBola;
-	private static int posicionYBola;
 	private static Timer tempo;
 	private boolean lanzado;
 
 	public pnlJuego() {
 		setPreferredSize(new Dimension(400, 600));
-		System.out.println(getSize().getWidth() + " " + getSize().getHeight());
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
-		tempo = new Timer(8, new jfrAplicacion.timerHandler());
-		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL));
+		tempo = new Timer(2, new jfrAplicacion.timerHandler());
+		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2));
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
-
-
 		setBolasJuego(new ArrayList<Bola>());
 		//crearBolas(20); //se Crean 20 Bolas en posiciones correctas
-
 		setLanzado(false);
 		addMouseMotionListener(this);
 		addMouseListener(this);
@@ -65,9 +59,9 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		
 		// se Pinta el suelo
 		g2.setStroke(new BasicStroke(3));
-		g2.draw(new Line2D.Float(0, getHeight() - ESPACIO_SUELO_PANEL, getWidth(), getHeight() - ESPACIO_SUELO_PANEL));
+		g2.draw(new Line2D.Float(0, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2, getWidth(), getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2));
 		g2.setStroke(new BasicStroke(3));
-		g2.draw(new Line2D.Float(getWidth() - 3, 0, getWidth() - 3, getHeight() - ESPACIO_SUELO_PANEL));
+		g2.draw(new Line2D.Float(getWidth() - 3, 0, getWidth() - 3, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2));
 
 		//se pintan las bolas que existen
 		for (int i = 0; i < getBolasJuego().size(); i++) {
@@ -75,20 +69,18 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 			g2.fill(getBolasJuego().get(i).getDibujoBola());
 		}
 		
-		
-
 		g2.setColor(getBolaJugador().getColorBola());
 		// se Pinta la bola
 	
 		if(!lanzado) {
-			Ellipse2D.Double hole = new Ellipse2D.Double(getWidth()/2 - getBolaJugador().RADIO_BOLA/2 , getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA , getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+			Ellipse2D.Double hole = new Ellipse2D.Double(getWidth()/2 - getBolaJugador().RADIO_BOLA/2 , getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2 - getBolaJugador().RADIO_BOLA , getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
 			g2.fill(hole);
 		} else {
-			Ellipse2D.Double hole = new Ellipse2D.Double(getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2, getPosicionYBola() - getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
+			Ellipse2D.Double hole = new Ellipse2D.Double(getBolaJugador().getCoordX() - getBolaJugador().RADIO_BOLA / 2, getBolaJugador().getCoordY() - getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
 			g2.fill(hole);
 		}
 		// se Pinta la flecha
-		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL);
+		Point sw = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA);
 		Point ne = new Point(getPuntoXFlecha(), getPuntoYFlecha());
 		g2.draw(new Line2D.Double(sw, ne));
 
@@ -150,22 +142,6 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		rectaPuntos = new rectaEntreDosPuntos(p1, p2);
 	}
 
-	public int getPosicionXBola() {
-		return posicionXBola;
-	}
-
-	public void setPosicionXBola(int valor) {
-		posicionXBola = valor;
-	}
-
-	public int getPosicionYBola() {
-		return posicionYBola;
-	}
-
-	public void setPosicionYBola(int valor) {
-		posicionYBola = valor;
-	}
-
 	public ArrayList<Bola> getBolasJuego() {
 		return bolasJuego;
 	}
@@ -209,9 +185,9 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		if (!getTempo().isRunning()) {
 			System.out.println("Altura: " + getHeight());
 			setLanzado(true);
-			setPosicionYBola(getHeight() - ESPACIO_SUELO_PANEL);
-			setPosicionXBola(getWidth() / 2);
-			setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL), new Point(e.getX(), e.getY()));
+			getBolaJugador().setCoordY(getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2 );
+			getBolaJugador().setCoordX(getWidth() / 2);
+			setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2), new Point(e.getX(), e.getY()));
 			System.out.println("Pendiente " + getRectaEntrePuntos().getEcuacion().getPendiente());
 			getTempo().start();
 		}
@@ -225,40 +201,41 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	public boolean compararCercanias() {
 		Graphics g = getGraphics();
 		g.setColor(Color.BLACK);
-		getBolaJugador().getPuntosCircunferencia().clear();
-		getBolaJugador().calcularAreaBola();
 
-		System.out.println("SE" + getBolaJugador().getPuntosCircunferencia().size());
 		for (int i = 0; i < getBolasJuego().size(); i++) {
-			//for (int j = 0; j < getBolaJugador().getPuntosCircunferencia().size(); j++) {
-				if(getBolasJuego().get(i).getDibujoBola().contains(getPosicionXBola(), getPosicionYBola() - getBolaJugador().RADIO_BOLA)) {
+			for (int j = 0; j < 10; j++) {
+				if(getBolasJuego().get(i).getDibujoBola().intersects(getBolaJugador().calcularAreaBola1().get(j).getX(), (int)(getBolaJugador().calcularAreaBola1().get(j).getY()), 1, 1)) {
+
 					System.out.println("caso 1");
 					return true;
-				} else if (getBolasJuego().get(i).getDibujoBola().contains(getPosicionXBola() - getBolaJugador().RADIO_BOLA, getPosicionYBola())) {
+				}/* else if (getBolasJuego().get(i).getDibujoBola().contains(getPosicionXBola() - getBolaJugador().RADIO_BOLA, getPosicionYBola())) {
 					System.out.println("caso 2");
 					return true;
 				} else if (getBolasJuego().get(i).getDibujoBola().contains(getPosicionXBola() + getBolaJugador().RADIO_BOLA, getPosicionYBola())) {
 					System.out.println("caso 3");
 					return true;
-				} else { }
+				} */else { }
 					//g.fillOval((int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getX(), 
 					//		(int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getY(), 5, 5);
 					//paint(g);
 				//	return true;
 				//}
-			
+			//g.drawRect((int)(getBolaJugador().getPuntosCircunferencia().get(j).getX()), (int)(getBolaJugador().getPuntosCircunferencia().get(j).getY()), (int)(getBolaJugador().getPuntosCircunferencia().get(j).getX()), (int)(getBolaJugador().getPuntosCircunferencia().get(j).getY()));
 		}
 			
 
-			/*Graphics g = getGraphics();
+			/*//Graphics g = getGraphics();
 			g.setColor(Color.BLACK);
 			for (int j = 0; j < 360; j++) {
+				g.drawRect((int)getBolaJugador().calcularAreaBola1().get(j).getX(), (int)(getBolaJugador().calcularAreaBola1().get(j).getY()), 10, 10);
 				g.fillOval((int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getX(), 
 						(int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getY(), 5, 5);
-				}
+				g.fillOval((int)(getBolaJugador().calcularAreaBola1().get(j).getX()), (int)(getBolaJugador().calcularAreaBola1().get(j).getY()), 10, 10);
+			}
+			*/
 
-		*/
 		
+		}
 		return false;
 	}
 }
