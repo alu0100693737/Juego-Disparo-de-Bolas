@@ -62,7 +62,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		// TODO Auto-generated method stub
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
-		compararCercanias();
+		
 		// se Pinta el suelo
 		g2.setStroke(new BasicStroke(3));
 		g2.draw(new Line2D.Float(0, getHeight() - ESPACIO_SUELO_PANEL, getWidth(), getHeight() - ESPACIO_SUELO_PANEL));
@@ -223,17 +223,32 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	}
 
 	public boolean compararCercanias() {
-		for (int i = 0; i < getBolasJuego().size(); i++) {
-				if(getBolasJuego().get(i).getDibujoBola().intersects(getPosicionXBola() - getBolaJugador().RADIO_BOLA / 2 - 2, getPosicionYBola() - getBolaJugador().RADIO_BOLA / 2 - 2, getPosicionXBola() + getBolaJugador().RADIO_BOLA / 2 + 2, getPosicionYBola() + getBolaJugador().RADIO_BOLA / 2 + 2)) {
-				//if(getBolasJuego().get(i).getPuntosCircunferencia().get(j).getX() == getBolaJugador().calcularAreaBola1().get(j).getX()){
-				//	System.out.println("PEPE");
-				//}
-					//if(getBolasJuego().get(i).getPuntosCircunferencia().get(j).getY() == getBolaJugador().calcularAreaBola1().get(j).getY()){
+		Graphics g = getGraphics();
+		g.setColor(Color.BLACK);
+		getBolaJugador().getPuntosCircunferencia().clear();
+		getBolaJugador().calcularAreaBola();
 
-					System.out.println("HEYSujghkj");
+		System.out.println("SE" + getBolaJugador().getPuntosCircunferencia().size());
+		for (int i = 0; i < getBolasJuego().size(); i++) {
+			//for (int j = 0; j < getBolaJugador().getPuntosCircunferencia().size(); j++) {
+				if(getBolasJuego().get(i).getDibujoBola().contains(getPosicionXBola(), getPosicionYBola() - getBolaJugador().RADIO_BOLA)) {
+					System.out.println("caso 1");
 					return true;
-				}
-			}
+				} else if (getBolasJuego().get(i).getDibujoBola().contains(getPosicionXBola() - getBolaJugador().RADIO_BOLA, getPosicionYBola())) {
+					System.out.println("caso 2");
+					return true;
+				} else if (getBolasJuego().get(i).getDibujoBola().contains(getPosicionXBola() + getBolaJugador().RADIO_BOLA, getPosicionYBola())) {
+					System.out.println("caso 3");
+					return true;
+				} else { }
+					//g.fillOval((int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getX(), 
+					//		(int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getY(), 5, 5);
+					//paint(g);
+				//	return true;
+				//}
+			
+		}
+			
 
 			/*Graphics g = getGraphics();
 			g.setColor(Color.BLACK);
@@ -242,8 +257,9 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 						(int)getBolasJuego().get(i).getPuntosCircunferencia().get(j).getY(), 5, 5);
 				}
 
-		}*/
+		*/
 		
 		return false;
 	}
 }
+

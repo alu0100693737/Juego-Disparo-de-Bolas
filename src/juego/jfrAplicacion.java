@@ -58,6 +58,8 @@ public class jfrAplicacion extends JFrame {
 					getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
 					getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolaJugador().calcularAreaBola();
+					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getPosicionYBola() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
+					getJuego().getBolaJugador().setDibujoBola(aux);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
