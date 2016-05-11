@@ -13,53 +13,50 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class pnlScore extends JPanel {
-	private jlbEtiqueta score;
+	private jlbEtiquetaScore score;
 	private jbnBotonInfo botonInfo;
 	private jlbEspaciado espacio;
-	
+
 	public pnlScore(URL url) throws IOException {
 		setLayout(new GridLayout(3, 1, 0, 0));
 		setEspacio(new jlbEspaciado(60, 80));
 		setBackground(Color.BLACK);
 		add(getEspacio());
-		setScore(new jlbEtiqueta("__"));
+		setScore(new jlbEtiquetaScore("__"));
 		setBotonInfo(new jbnBotonInfo(url));
 		add(getScore());
 		getBoton().getInfo().addActionListener(new abrirPanelInfo());
 		add(getBoton().getInfo());
 	}
-	
-	public jlbEtiqueta getScore() {
+
+	public jlbEtiquetaScore getScore() {
 		return score;
 	}
-	
-	public void setScore(jlbEtiqueta valor) {
+
+	public void setScore(jlbEtiquetaScore valor) {
 		score = valor;
 	}
-	
+
 	public jbnBotonInfo getBoton() {
 		return botonInfo;
 	}
-	
+
 	public void setBotonInfo(jbnBotonInfo valor) {
 		botonInfo = valor;
 	}
-	
+
 	public jlbEspaciado getEspacio() {
 		return espacio;
 	}
-	
+
 	public void setEspacio(jlbEspaciado valor) {
 		espacio = valor;
 	}
-	
-public static class abrirPanelInfo implements ActionListener {
+
+	public static class abrirPanelInfo implements ActionListener {
 		//crea un color aleatorio
 		public void actionPerformed(ActionEvent arg0) {	
 			jfrInfo info = new jfrInfo();

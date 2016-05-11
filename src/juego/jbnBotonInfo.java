@@ -1,3 +1,9 @@
+/** Ivan Garcia Campos   alu0100693737@ull.edu.es
+ * 11/05/16
+ * Programacion de aplicaciones interactivas
+ * 1.0v
+ * Clase para el boton informacion datos del desarrollador
+ */
 package juego;
 
 import java.awt.Color;
@@ -18,11 +24,11 @@ public final class jbnBotonInfo {
 		getInfo().setBorder(null);
 		getInfo().setBackground(Color.WHITE);
 	}
-	
+
 	public JButton getInfo() {
 		return info;
 	}
-	
+
 	public void setInfo(JButton valor) {
 		info = valor;
 	}

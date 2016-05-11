@@ -1,3 +1,9 @@
+/** Ivan Garcia Campos   alu0100693737@ull.edu.es
+ * 11/05/16
+ * Programacion de aplicaciones interactivas
+ * 1.0v
+ * Clase principal para la prueba de la aplicacion
+ */
 package juego;
 
 import java.awt.BorderLayout;
@@ -5,7 +11,6 @@ import java.awt.Dimension;
 import java.io.IOException;
 
 import javax.swing.JFrame;
-
 
 public class PrincipalApplet {
 	public static void main(String[] args) throws IOException {
@@ -16,7 +21,7 @@ public class PrincipalApplet {
 		frame.setLocationRelativeTo(null); // Center the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(new Dimension(500, 300));
-		
+
 		jfrAplicacion applet = new jfrAplicacion();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Add the applet instance to the frame

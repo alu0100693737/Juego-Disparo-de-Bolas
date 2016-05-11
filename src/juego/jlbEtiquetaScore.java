@@ -1,28 +1,32 @@
-package juego;
-
 /** Ivan Garcia Campos   alu0100693737@ull.edu.es
- * 05/05/16
+ * 11/05/16
  * Programacion de aplicaciones interactivas
  * 1.0v
- * Clase Boton para la creacion de boton propio
+ * Clase para representar graficamente el numero de bolas pintadas en la aplicacion
  */
+package juego;
 
 import java.awt.Color;
-import javax.swing.JButton;
+import java.awt.Font;
+
+import javax.swing.JLabel;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class boton extends JButton {
-	private final static Color COLORBOTON = new Color(255, 255, 88);
-	public boton(String text) {
+public class jlbEtiquetaScore extends JLabel{
+	private final static Color COLORBOTON = new Color(194, 235, 253);
+	public jlbEtiquetaScore(String text) {
 		setText(text);
-		setForeground(Color.BLACK);
+		setOpaque(true);
 		setBackground(COLORBOTON);
+		setForeground(Color.BLACK);
 		Border line = new LineBorder(Color.BLACK);
 		Border margin = new EmptyBorder(5, 15, 5, 15);
 		Border compound = new CompoundBorder(line, margin);
 		setBorder(compound);
+		setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 	}
+
 }

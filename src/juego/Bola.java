@@ -21,11 +21,11 @@ public class Bola {
 	private int coordenadaX;
 	private int coordenadaY;
 	private ArrayList<Point> puntosCircunfencia;
-	private Ellipse2D.Double dibujoBola;
-	
-	//bolas cercanas con el mismo color
+	private Ellipse2D.Double dibujoBola; 			// Bola a dibujar
+	private final int PRECISION = 36; 				// precision calculo de puntos circunferenca
+	// bolas cercanas con el mismo color
 	private ArrayList<Point> bolasCercanas;
-	
+
 	public Bola(int coordX, int coordY) {
 		setTipoColores(new ColoresContainer());
 		setCoordX(coordX);
@@ -35,75 +35,74 @@ public class Bola {
 		setColorBola(getTipoColores().getArrayColores().get(Math.abs(aux.nextInt() % getTipoColores().getArrayColores().size())));
 		setPuntosCircunferencia(new ArrayList<Point>());
 		dibujoBola = new Ellipse2D.Double();
-		
 		bolasCercanas = new ArrayList<Point>();
 	}
-	
+
 	public void calcularAreaBola() {
-		for (int i = 0; i < ANGULOS; i+=36) {
+		for (int i = 0; i < ANGULOS; i += PRECISION) {
 			getPuntosCircunferencia().add(new Point((int)(RADIO_BOLA / 2 * Math.cos(Math.toDegrees(i)) + getCoordX()), (int)(RADIO_BOLA / 2 * Math.sin(Math.toDegrees(i)) + getCoordY() - RADIO_BOLA/2)));
 		}
 	}
 	public ArrayList<Point> calcularAreaBola1() {
 		ArrayList<Point> puntos = new ArrayList<Point>();
-		for (int i = 0; i < ANGULOS; i+=36) {
+		for (int i = 0; i < ANGULOS; i += PRECISION) {
 			puntos.add(new Point((int)(RADIO_BOLA / 2 * Math.cos(Math.toDegrees(i)) + getCoordX()), (int)(RADIO_BOLA / 2 * Math.sin(Math.toDegrees(i)) + getCoordY() - RADIO_BOLA/2)));
 		}
 		return puntos;
 	}
-	
+
 	public Color getColorBola() {
 		return colorBola;
 	}
-	
+
 	public void setColorBola(Color nuevo) {
 		colorBola = nuevo;
 	}
-	
+
 	public int getCoordX() {
 		return coordenadaX;
 	}
-	
+
 	public void setCoordX(int valor) {
 		coordenadaX = valor;
 	}
-	
+
 	public int getCoordY() {
 		return coordenadaY;
 	}
-	
+
 	public void setCoordY(int valor) {
 		coordenadaY = valor;
 	}
-	
+
 	public ColoresContainer getTipoColores() {
 		return tiposColores;
 	}
-	
+
 	public void setTipoColores(ColoresContainer colores) {
 		tiposColores = colores;
 	}
-	
+
 	public ArrayList<Point> getPuntosCircunferencia() {
 		return puntosCircunfencia;
 	}
-	
+
 	public void setPuntosCircunferencia(ArrayList<Point> valor) {
 		puntosCircunfencia = valor;
 	}
-	
+
 	public Ellipse2D.Double getDibujoBola() {
 		return dibujoBola;
 	}
-	
+
 	public void setDibujoBola(Ellipse2D.Double valor) {
 		dibujoBola = valor;
 	}
-	
+
 	public ArrayList<Point> getBolasCercanas() {
 		return bolasCercanas;
 	}
-	
+
 	public void setBolasCercanas(ArrayList<Point> valor) {
 		bolasCercanas = valor;
 	}

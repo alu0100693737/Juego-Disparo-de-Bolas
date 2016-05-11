@@ -6,6 +6,7 @@
  */
 package juego;
 
+import java.applet.AudioClip;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,14 +30,17 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	private int puntoXFlecha;
 	private int puntoYFlecha;
 	private ArrayList<Bola> bolasJuego; 
+	private final static int NUM_PUNTOS = 10;
 
 	//movimiento de la bola
-	private rectaEntreDosPuntos rectaPuntos; 
-	private static Timer tempo;
-	private boolean lanzado;
+	private rectaEntreDosPuntos rectaPuntos;  // direccion bola
+	private static Timer tempo;	//tiempo para ejecutar evento timehandler
+	private boolean lanzado;	//utilizado en paint
 	private boolean noPintar; //en el caso de tercera bola, no pintar la ultima
+	private AudioClip sonido;
 
-	public pnlJuego() {
+	public pnlJuego(AudioClip audio) {
+		sonido = audio;
 		setPreferredSize(new Dimension(400, 600));
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
@@ -119,6 +123,10 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		puntoYFlecha = valor;
 	}
 
+	public AudioClip getSonido() {
+		return sonido;
+	}
+
 	public ColoresContainer getColores() {
 		return colores;
 	}
@@ -150,11 +158,11 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	public void setBolasJuego(ArrayList<Bola> valor) {
 		bolasJuego = valor;
 	}
-	
+
 	public boolean getNoPintar() {
 		return noPintar;
 	}
-	
+
 	public void setNoPintar(boolean valor) {
 		noPintar = valor;
 	}
@@ -191,11 +199,13 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if (!getTempo().isRunning()) {
+
 			setLanzado(true);
 			getBolaJugador().setCoordY(getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2 );
 			getBolaJugador().setCoordX(getWidth() / 2);
 			setRectaEntrePuntos(new Point(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2), new Point(e.getX(), e.getY()));
 			getTempo().start();
+
 		}
 	}
 
@@ -204,9 +214,11 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		// TODO Auto-generated method stub
 	}
 
-	public boolean compararCercanias() {
+	public boolean compararCercanias() throws InterruptedException {
+		//se compara con todas las bolas
 		for (int i = 0; i < getBolasJuego().size(); i++) {
-			for (int j = 0; j < 10; j++) {
+
+			for (int j = 0; j < NUM_PUNTOS; j++) {
 				if(getBolasJuego().get(i).getDibujoBola().intersects(getBolaJugador().calcularAreaBola1().get(j).getX(), (int)(getBolaJugador().calcularAreaBola1().get(j).getY()), 1, 1)) {
 					if(getBolasJuego().get(i).getColorBola() == getBolaJugador().getColorBola()) {
 						if((getBolasJuego().get(i).getBolasCercanas().size() < 1)){
@@ -214,16 +226,19 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 							getBolaJugador().getBolasCercanas().add(new Point(getBolasJuego().get(i).getCoordX(), getBolasJuego().get(i).getCoordY()));
 							return true;
 						} else {
-								for (int k = 0; k < 1; k++) {
-									for (int j2 = 0; j2 < getBolasJuego().size(); j2++) {
+							for (int k = 0; k < 1; k++) {
+								for (int j2 = 0; j2 < getBolasJuego().size(); j2++) {
 									if((getBolasJuego().get(j2).getCoordX() == getBolasJuego().get(i).getBolasCercanas().get(k).getX()) && (getBolasJuego().get(j2).getCoordY() == getBolasJuego().get(i).getBolasCercanas().get(k).getY())) {
 										getBolasJuego().remove(j2);
+										getSonido().loop();
+										Thread.sleep(600);
+										getSonido().stop();
 										break;
 									}
 								}
-									getBolasJuego().remove(i - 1);
-									setNoPintar(true);
-									return true;
+								getBolasJuego().remove(i - 1);
+								setNoPintar(true);
+								return true;
 							}
 						}
 					} // color

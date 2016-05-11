@@ -1,3 +1,10 @@
+/** Ivan Garcia Campos   alu0100693737@ull.edu.es
+ * 11/05/16
+ * Programacion de aplicaciones interactivas
+ * 1.0v
+ * Clase para calcular la recta entre dos puntos. Contiene un atributo de tipo 
+ * ecuacionRecta
+ */
 package juego;
 
 import java.awt.Point;
