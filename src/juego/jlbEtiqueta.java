@@ -15,7 +15,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 public class jlbEtiqueta extends JLabel {
-	private final static Color COLORBOTON = new Color(255, 255, 88);
+	private final static Color COLORBOTON = new Color(194, 235, 253);
 	public jlbEtiqueta(String text) {
 		setText(text);
 		setOpaque(true);

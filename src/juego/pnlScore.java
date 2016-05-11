@@ -12,23 +12,24 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class pnlScore extends JPanel {
-	
-	private pnlOpciones opciones;
 	private jlbEtiqueta score;
 	private jbnBotonInfo botonInfo;
+	private jlbEspaciado espacio;
 	
-	public pnlScore() throws IOException {
-		setLayout(new GridLayout(3, 1, 5, 5));
-		setpnlOpciones(new pnlOpciones());
-		add(getpnlOpciones());
+	public pnlScore(URL url) throws IOException {
+		setLayout(new GridLayout(3, 1, 0, 0));
+		setEspacio(new jlbEspaciado(60, 80));
+		setBackground(Color.BLACK);
+		add(getEspacio());
 		setScore(new jlbEtiqueta("__"));
-		setBotonInfo(new jbnBotonInfo());
+		setBotonInfo(new jbnBotonInfo(url));
 		add(getScore());
 		getBoton().getInfo().addActionListener(new abrirPanelInfo());
 		add(getBoton().getInfo());
@@ -50,12 +51,12 @@ public class pnlScore extends JPanel {
 		botonInfo = valor;
 	}
 	
-	public pnlOpciones getpnlOpciones() {
-		return opciones;
+	public jlbEspaciado getEspacio() {
+		return espacio;
 	}
 	
-	public void setpnlOpciones(pnlOpciones valor) {
-		opciones = valor;
+	public void setEspacio(jlbEspaciado valor) {
+		espacio = valor;
 	}
 	
 public static class abrirPanelInfo implements ActionListener {

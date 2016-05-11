@@ -10,21 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
 public class jfrAplicacion extends JApplet {
-	private static int prueba;	
 	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
 	private static pnlJuego juego;
 	public static pnlScore score;
 
 	public jfrAplicacion() throws IOException {
-		prueba = 0;
+
+		URL url = jfrAplicacion.class.getResource(
+        "info.png");
 		setLayout(new BorderLayout());
 		juego = new pnlJuego();
-		score = new pnlScore();
+		score = new pnlScore(url);
 
 		add(getJuego(), BorderLayout.CENTER);
 		add(getScore(), BorderLayout.EAST);
@@ -37,12 +39,12 @@ public class jfrAplicacion extends JApplet {
 	public static pnlScore getScore() {
 		return score;
 	}
+	
 	public static class timerHandler implements ActionListener {
 		//pinta elemento a elemento del camino
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//calcula uno por uno
-			//System.out.println("ESEEE" + getJuego().getBolaJugador().getPuntosCircunferencia().size());
 			if(getJuego().getRectaEntrePuntos().getPunto2().getX() <= (getJuego().getWidth()/2  - getJuego().getBolaJugador().RADIO_BOLA / 2)) {
 				if((getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA > 0) && (!getJuego().compararCercanias())) {
 					if(getJuego().getBolaJugador().getCoordX() > getJuego().getBolaJugador().RADIO_BOLA/2) {
@@ -57,13 +59,14 @@ public class jfrAplicacion extends JApplet {
 					}
 				} else {
 					System.out.println("Choca con el techo");
-					//getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
-					//getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolaJugador().calcularAreaBola();
+					if(getJuego().getNoPintar() == false) {
 					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getBolaJugador().getCoordX() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
 					getJuego().getBolaJugador().setDibujoBola(aux);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
-					System.out.println("Tamano " + getJuego().getBolasJuego().size());
+					} else {
+						getJuego().setNoPintar(false);
+					}
 					getJuego().getTempo().stop();
 					getJuego().setBolaJugador(new Bola(getJuego().getWidth() / 2, getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL));
 					getJuego().getBolaJugador().setCoordY(getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL);
@@ -83,12 +86,14 @@ public class jfrAplicacion extends JApplet {
 					}
 				} else {
 					System.out.println("Chocando techo");
-					//getJuego().getBolaJugador().setCoordX(getJuego().getPosicionXBola() - getJuego().getBolaJugador().RADIO_BOLA/2);
-					//getJuego().getBolaJugador().setCoordY(getJuego().getPosicionYBola() - getJuego().ESPACIO_SUELO_PANEL);
 					getJuego().getBolaJugador().calcularAreaBola();
+					if(getJuego().getNoPintar() == false) {
 					Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getBolaJugador().getCoordX() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
 					getJuego().getBolaJugador().setDibujoBola(aux);
 					getJuego().getBolasJuego().add(getJuego().getBolaJugador());
+					} else {
+						getJuego().setNoPintar(false);
+					}
 					System.out.println("Tamano " + getJuego().getBolasJuego().size());
 					getJuego().getTempo().stop();
 					getJuego().setBolaJugador(new Bola(getJuego().getWidth() / 2, getJuego().getHeight() - getJuego().ESPACIO_SUELO_PANEL));

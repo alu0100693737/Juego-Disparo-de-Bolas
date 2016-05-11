@@ -1,5 +1,6 @@
 package juego;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JLabel;

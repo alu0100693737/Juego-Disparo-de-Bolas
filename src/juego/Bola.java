@@ -23,6 +23,9 @@ public class Bola {
 	private ArrayList<Point> puntosCircunfencia;
 	private Ellipse2D.Double dibujoBola;
 	
+	//bolas cercanas con el mismo color
+	private ArrayList<Point> bolasCercanas;
+	
 	public Bola(int coordX, int coordY) {
 		setTipoColores(new ColoresContainer());
 		setCoordX(coordX);
@@ -32,6 +35,8 @@ public class Bola {
 		setColorBola(getTipoColores().getArrayColores().get(Math.abs(aux.nextInt() % getTipoColores().getArrayColores().size())));
 		setPuntosCircunferencia(new ArrayList<Point>());
 		dibujoBola = new Ellipse2D.Double();
+		
+		bolasCercanas = new ArrayList<Point>();
 	}
 	
 	public void calcularAreaBola() {
@@ -93,5 +98,13 @@ public class Bola {
 	
 	public void setDibujoBola(Ellipse2D.Double valor) {
 		dibujoBola = valor;
+	}
+	
+	public ArrayList<Point> getBolasCercanas() {
+		return bolasCercanas;
+	}
+	
+	public void setBolasCercanas(ArrayList<Point> valor) {
+		bolasCercanas = valor;
 	}
 }

@@ -15,13 +15,12 @@ public class PrincipalApplet {
 		frame.pack();
 		frame.setLocationRelativeTo(null); // Center the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(new Dimension(600, 450));
+		frame.setSize(new Dimension(500, 300));
 		
 		jfrAplicacion applet = new jfrAplicacion();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Add the applet instance to the frame
 		frame.add(applet, BorderLayout.CENTER);
-		
 		frame.setVisible(true);
 	}
 }
