@@ -19,6 +19,7 @@ public class ColoresContainer {
 		getArrayColores().add(Color.YELLOW);
 		getArrayColores().add(Color.BLUE);
 		getArrayColores().add(Color.GREEN);
+		getArrayColores().add(Color.white);
 		System.out.println(getArrayColores().size());
 	}
 

@@ -17,7 +17,7 @@ public class ecuacionRecta {
 	private double constante;
 	private double pendiente;
 
-	//Puntos necesarios para calcular la perpendicular
+	// Puntos necesarios para calcular la perpendicular
 	private double x1;
 	private double y1;
 

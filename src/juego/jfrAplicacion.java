@@ -15,6 +15,7 @@ import java.net.URL;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 public class jfrAplicacion extends JApplet {
 	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
@@ -22,11 +23,10 @@ public class jfrAplicacion extends JApplet {
 	public static pnlScore score;
 
 	public jfrAplicacion() throws IOException {
-
 		URL urlimagen = jfrAplicacion.class.getResource(
 				"info.png");
 		URL urlForAudio = getClass().getResource("musica.wav");
-		System.out.println("¿Audio cargado?" + urlForAudio);
+		System.out.println("ï¿½Audio cargado?" + urlForAudio);
 		setLayout(new BorderLayout());
 		juego = new pnlJuego(Applet.newAudioClip(urlForAudio));
 		score = new pnlScore(urlimagen);
@@ -60,9 +60,11 @@ public class jfrAplicacion extends JApplet {
 							getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getBolaJugador().getCoordX(), getJuego().getBolaJugador().getCoordY());
 							getJuego().getBolaJugador().setCoordX(getJuego().getBolaJugador().getCoordX() + PRECISION_PINTAR);
 							getJuego().getBolaJugador().setCoordY((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getBolaJugador().getCoordX()));
+							getJuego().getTempo().setDelay(10);
 						}
 					} else {
 						System.out.println("Choca con el techo");
+						getJuego().getTempo().setDelay(2);
 						getJuego().getBolaJugador().calcularAreaBola();
 						if(getJuego().getNoPintar() == false) {
 							Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getBolaJugador().getCoordX() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
@@ -92,10 +94,12 @@ public class jfrAplicacion extends JApplet {
 							getJuego().getRectaEntrePuntos().getEcuacion().cambiarAPerpendicular(getJuego().getBolaJugador().getCoordX(), getJuego().getBolaJugador().getCoordY());
 							getJuego().getBolaJugador().setCoordX(getJuego().getBolaJugador().getCoordX() - PRECISION_PINTAR);
 							getJuego().getBolaJugador().setCoordY((int)getJuego().getRectaEntrePuntos().getEcuacion().calcularY(getJuego().getBolaJugador().getCoordX()));
+							getJuego().getTempo().setDelay(10);
 						}
 					} else {
 						System.out.println("Chocando techo");
 						getJuego().getBolaJugador().calcularAreaBola();
+						getJuego().getTempo().setDelay(2);
 						if(getJuego().getNoPintar() == false) {
 							Ellipse2D.Double aux = new Ellipse2D.Double(getJuego().getBolaJugador().getCoordX() - getJuego().getBolaJugador().RADIO_BOLA / 2, getJuego().getBolaJugador().getCoordY() - getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA, getJuego().getBolaJugador().RADIO_BOLA);
 							getJuego().getBolaJugador().setDibujoBola(aux);

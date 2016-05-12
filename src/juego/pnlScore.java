@@ -16,16 +16,19 @@ import java.net.URL;
 import javax.swing.JPanel;
 
 public class pnlScore extends JPanel {
+	
+	private final static int TAMANO_X_ESPACIADO = 60;
+	private final static int TAMANO_Y_ESPACIADO = 50;
 	private jlbEtiquetaScore score;
 	private jbnBotonInfo botonInfo;
 	private jlbEspaciado espacio;
-
+	
 	public pnlScore(URL url) throws IOException {
 		setLayout(new GridLayout(3, 1, 0, 0));
-		setEspacio(new jlbEspaciado(60, 80));
+		setEspacio(new jlbEspaciado(TAMANO_X_ESPACIADO, TAMANO_Y_ESPACIADO));
 		setBackground(Color.BLACK);
 		add(getEspacio());
-		setScore(new jlbEtiquetaScore("__"));
+		setScore(new jlbEtiquetaScore(" 0 "));
 		setBotonInfo(new jbnBotonInfo(url));
 		add(getScore());
 		getBoton().getInfo().addActionListener(new abrirPanelInfo());
@@ -57,7 +60,7 @@ public class pnlScore extends JPanel {
 	}
 
 	public static class abrirPanelInfo implements ActionListener {
-		//crea un color aleatorio
+		// crea un color aleatorio
 		public void actionPerformed(ActionEvent arg0) {	
 			jfrInfo info = new jfrInfo();
 			info.setTitle("Juego Disparo Bolas");

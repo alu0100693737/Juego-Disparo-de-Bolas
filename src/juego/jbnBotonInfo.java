@@ -19,7 +19,6 @@ import javax.swing.JButton;
 public final class jbnBotonInfo {
 	private JButton info;
 	public jbnBotonInfo(URL url) throws IOException {
-		//BufferedImage myPicture = ImageIO.read(new File("src/juego/info.png"));
 		setInfo(new JButton(new ImageIcon(url)));
 		getInfo().setBorder(null);
 		getInfo().setBackground(Color.WHITE);

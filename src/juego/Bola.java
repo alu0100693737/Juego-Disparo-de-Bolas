@@ -37,6 +37,17 @@ public class Bola {
 		dibujoBola = new Ellipse2D.Double();
 		bolasCercanas = new ArrayList<Point>();
 	}
+	
+	public Bola(int coordX, int coordY, int color) {
+		setTipoColores(new ColoresContainer());
+		setCoordX(coordX);
+		setCoordY(coordY);
+		setColorBola(getTipoColores().getArrayColores().get(color));
+		setPuntosCircunferencia(new ArrayList<Point>());
+		dibujoBola = new Ellipse2D.Double();
+		bolasCercanas = new ArrayList<Point>();
+		
+	}
 
 	public void calcularAreaBola() {
 		for (int i = 0; i < ANGULOS; i += PRECISION) {

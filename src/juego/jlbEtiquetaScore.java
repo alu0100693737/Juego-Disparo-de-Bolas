@@ -28,5 +28,4 @@ public class jlbEtiquetaScore extends JLabel{
 		setBorder(compound);
 		setFont(new Font("Comic Sans MS", Font.BOLD, 30));
 	}
-
 }
