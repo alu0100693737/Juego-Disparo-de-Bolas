@@ -48,7 +48,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		setSize(new Dimension(800, 700));
 		setBackground(COLOR_FONDO);
 		setColores(new ColoresContainer());
-		tempo = new Timer(2, new jfrAplicacion.timerHandler());
+		tempo = new Timer(1, new jfrAplicacion.timerHandler());
 		setBolaJugador(new Bola(getWidth() / 2, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA/2));
 		setPuntoXFlecha(getWidth() / 2);
 		setPuntoXFlecha(getHeight());
@@ -75,7 +75,7 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 				i = 0;
 			}
 			for (; i < getWidth(); i+= getBolaJugador().RADIO_BOLA) {
-				getBolasJuego().add(new Bola(i + getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA));	
+				getBolasJuego().add(new Bola(i + getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA, getBolasJuego().size() %  5));	
 				Ellipse2D.Double aux = new Ellipse2D.Double(i, j, getBolaJugador().RADIO_BOLA, getBolaJugador().RADIO_BOLA);
 				getBolasJuego().get(getBolasJuego().size() - 1).setDibujoBola(aux);	
 				compararCercanias();
@@ -116,12 +116,12 @@ public class pnlJuego extends JPanel implements MouseListener, MouseMotionListen
 		Point inicio = new Point(getWidth()/2, getHeight() - ESPACIO_SUELO_PANEL - getBolaJugador().RADIO_BOLA);
 		
 		Point direccion;
-		if(getPuntoYFlecha() < MAX_FLECHA) {
+		/*if(getPuntoYFlecha() < MAX_FLECHA) {
 			direccion = new Point(getPuntoXFlecha(), MAX_FLECHA);
 		}
-		else {
+		else {*/
 			direccion = new Point(getPuntoXFlecha(), getPuntoYFlecha());
-		}
+		//}
 		
 		g2.draw(new Line2D.Double(inicio, direccion));
 

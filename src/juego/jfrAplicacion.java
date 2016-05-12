@@ -18,7 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 
 public class jfrAplicacion extends JApplet {
-	private final static int PRECISION_PINTAR = 1; // se pinta en cada pixel
+	private final static int PRECISION_PINTAR = 3; // se pinta en cada pixel
 	private static pnlJuego juego;
 	public static pnlScore score;
 
